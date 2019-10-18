@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <title th:text="#{cas.login.pagetitle}"></title>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+
+        $(document).ready(function() {
+            var obj = document.getElementById("captcha-offline");
+            if (obj) {
+                refreshCaptcha(obj);
+            }
+        });
+
+        function refreshCaptcha(obj) {
+            var url = [[@{/login/captcha}]];
+            obj.setAttribute("src", url + "?num=" + Math.ceil(Math.random() * 100000));
+        }
+
+        /*]]>*/
+    </script>
+    <style type="text/css">
+        .tcas-login {
+            position: fixed;
+			width:65%;
+            height: 440px;
+            background: white;
+            border-radius: 10px;
+            margin: auto;
+        }
+
+        .tcas-login-logo {
+            float: left;
+            height: 100%;
+            width: 45%;
+            border-right: 1px solid #ddd;
+            box-sizing: border-box;
+            background-image: -webkit-radial-gradient(white, white, #fdfdfe, #f8f9fc, #e1e6f1, #dae1f0, #d7dff0);
+            background-image: radial-gradient(white, white, #fdfdfe, #f8f9fc, #e1e6f1, #dae1f0, #d7dff0);
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .tcas-login-logo > img {
+            display: block;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        .tcas-login-content {
+            float: left;
+            width: 55%;
+        }
+
+        .tcas-login-content-head {
+            padding: 30px 60px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tcas-login-content-head > span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 0px;
+            margin-right: 16px;
+            border: 2px solid #305ab5;
+            border-radius: 2px;
+        }
+
+        .tcas-login-content-head > div {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+
+        .tcas-login-form {
+            padding: 20px 60px;
+        }
+
+        .tcas-login-form-alert {
+            padding: 4px 12px;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            color: #721c24;
+            background: #f8d7da;
+            margin-bottom: 10px;
+            margin-top: -5px;
+        }
+
+        .tcas-login-form-title {
+            margin-bottom: 20px;
+        }
+
+        .tcas-login-form input[type="text"], input[type="password"] {
+            border: 1px solid #d4dbeb;
+            border-radius: 4px;
+            height: 36px;
+            padding-left: 36px;
+            box-sizing: border-box;
+        }
+
+        .tcas-login-form .input-field {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .tcas-login-form .input-field > input {
+            width: 100%;
+        }
+
+        .tcas-login-form .input-field svg {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            fill: #bac2d0;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+        }
+
+        .tcas-login-form .captcha-field .input-field {
+            float: left;
+            width: 60%;
+        }
+
+        .tcas-login-form .captcha-field > .captcha {
+            box-sizing: border-box;
+            float: left;
+            width: 40%;
+            padding-left: 10px;
+        }
+
+        .tcas-login-form .captcha-field .captcha > div {
+            height: 36px;
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .tcas-login-form input[type="submit"] {
+            width: 100%;
+            padding: 6px;
+            text-align: center;
+            margin-top: 20px;
+            background: #305ab5;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .tcas-login-form-op {
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .tcas-login-form-op > span {
+            float: left;
+        }
+
+        .tcas-login-form-op > span > label > * {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .tcas-login-delegation {
+            padding: 0px 45px;
+        }
+
+        .tcas-login-delegation-loginwith {
+            font-size: 17px;
+            margin-top: 4px;
+        }
+
+        .tcas-login-delegation-provider {
+            margin-bottom: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class = "container">
+        
+    </div>
+    <div class="tcas-login" layout:fragment="content">
+        <svg xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none" xmlns="http://www.w3.org/2000/svg">
+            <symbol id="user" viewBox="0 0 1024 1024"><path d="M942.1 729.6c-78.3-120-203.3-204.5-348.1-228.3 91.5-38.9 157.2-140 157.2-259.8C751.2 88.2 644.1 0 512 0S272.8 88.2 272.8 241.6c0 119.8 65.6 220.9 157.2 259.8-144.8 23.7-269.8 108.3-348.1 228.2-82 125.5 9.4 294.4 156.8 294.4h546.6c147.4 0 238.8-168.9 156.8-294.4z"></path></symbol>
+            <symbol id="lock" viewBox="0 0 1024 1024"><path d="M853 1024.6H169.7c-75.5 0-136.6-61.1-136.6-136.6V546.4c0-75.5 61.1-136.6 136.6-136.6H238V273.1C238 122.1 360.4-.2 511.3-.2s273.3 122.4 273.3 273.3v136.6H853c75.5 0 136.6 61.1 136.6 136.6V888c0 75.5-61.2 136.6-136.6 136.6zM443 751.3c0 37.7 30.6 68.3 68.3 68.3s68.3-30.6 68.3-68.3V614.7c0-37.7-30.6-68.3-68.3-68.3S443 577 443 614.7v136.6zm273.3-478.2c0-113.2-91.8-205-205-205s-205 91.8-205 205v136.6h409.9V273.1z"></path></symbol>
+            <symbol id="shield" viewBox="0 0 1024 1024"><path d="M512 1024c-108.7 0-448-448-448-448V64s104 64 192 64S512 0 512 0s168 128 256 128 192-64 192-64v512s-339.3 448-448 448z"></path></symbol>
+        </svg>
+        <div class="tcas-login-logo">
+            <img th:src="@{/images/tcas/shield.png}" alt="">
+        </div>
+        <div class="tcas-login-content">
+            <div class="tcas-login-content-head">
+                <span>&nbsp;</span>
+                <div th:text="#{transwarp.login.loginTitle}"></div>
+            </div>
+            <form class="tcas-login-form" method="post" id="fm1" th:object="${credential}">
+                <div class="tcas-login-form-alert" th:if="${#fields.hasErrors('*')}">
+                    <span th:each="err : ${#fields.errors('*')}" th:utext="${err}"/>
+                </div>
+                <div class="tcas-login-form-title" th:text="#{transwarp.login.login}">
+                </div>
+                <div class="input-field">
+                    <svg>
+                        <use xlink:href="#user"></use>
+                    </svg>
+                    <input
+                        type="text"
+                        th:placeholder="#{transwarp.login.username}"
+                        id="username"
+                        th:disabled="${guaEnabled}"
+                        th:field="*{username}"
+                        th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                    >
+                </div>
+                <div class="input-field">
+                    <svg>
+                        <use xlink:href="#lock"></use>
+                    </svg>
+                    <input
+                        type="password"
+                        th:placeholder="#{transwarp.login.password}"
+                        id="password"
+                        th:field="*{password}"
+                        th:accesskey="#{screen.welcome.label.password.accesskey}"
+                    >
+                </div>
+                <div class="captcha-field" th:if="${offlineCaptchaEnabled}">
+                    <div class="input-field">
+                        <svg>
+                            <use xlink:href="#shield"></use>
+                        </svg>
+                        <input
+                            type="text"
+                            th:placeholder="#{transwarp.login.captcha}"
+                            id="captcha"
+                            th:accessKey="#{screen.welcome.label.captcha.accesskey}"
+                            autocomplete="off"
+                            name="captcha"
+                        >
+                    </div>
+                    <div class="captcha">
+                        <div>
+                            <img id="captcha-offline" onclick="refreshCaptcha(this)" th:alt-title="#{transwarp.login.changeCaptcha}"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google reCAPTCHA -->
+                <div class="captcha-field" th:if="${recaptchaSiteKey}">
+                    <div class="g-recaptcha" th:attr="data-sitekey=${recaptchaSiteKey}">
+                    </div>
+                </div>
+
+
+                <div>
+                    <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                    <input type="hidden" name="_eventId" value="submit"/>
+                    <input type="hidden" name="geolocation"/>
+
+                    <input
+                        name="submit"
+                        accesskey="l"
+                        th:value="#{transwarp.login.login}"
+                        type="submit"/>
+                </div>
+                <div class="tcas-login-form-op">
+                    <span th:if="${rememberMeAuthenticationEnabled}">
+                        <label th:title="#{transwarp.login.rememberMeTitle}">
+                            <input type="checkbox" name="rememberMe" id="rememberMe" value="true">
+                            <div th:text="#{transwarp.login.rememberMe}"></div>
+                        </label>
+                    </span>
+                </div>
+            </form>
+
+            <!-- Delegation interface -->
+            <div id="list-providers" class="tcas-login-delegation" th:if="${pac4jUrls}">
+                <div class="clearfix"></div>
+                <div class="col-md-6 tcas-login-delegation-loginwith">
+                    <span th:utext="#{screen.welcome.label.loginwith}"/>
+                </div>
+                <div class="col-md-6 tcas-login-delegation-provider" th:each="entry: ${pac4jUrls}" th:switch="${entry.type}">
+                    <a class="btn btn-block btn-social"
+                       th:classappend="'btn-' + ${entry.type}"
+                       th:href="${entry.redirectUrl}"
+                       th:inline="text"
+                       th:title="${entry.name}">
+
+                        <span th:case="twitter" class="fa fa-twitter-square"></span>
+                        <span th:case="foursquare" class="fa fa-foursquare"></span>
+                        <span th:case="windowslive" class="fa fa-windows"></span>
+                        <span th:case="yahoo" class="fa fa-yahoo"></span>
+                        <span th:case="bitbucket" class="fa fa-bitbucket"></span>
+                        <span th:case="wordpress" class="fa fa-wordpress"></span>
+                        <span th:case="google2" class="fa fa-google-plus"></span>
+                        <span th:case="github" class="fa fa-github-alt"></span>
+                        <span th:case="dropbox" class="fa fa-dropbox"></span>
+                        <span th:case="linkedin" class="fa fa-linkedin"></span>
+                        <span th:case="facebook" class="fa fa-facebook-square"></span>
+                        <span th:case="oidc" class="fa fa-openid"></span>
+                        <span th:case="saml2" th:class="${entry.cssClass}"></span>
+                        <span th:case="*" class="fa fa-sign-in"></span>
+
+                        [[${entry.name}]]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
